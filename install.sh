@@ -1,5 +1,14 @@
 #!/bin/bash
 
+if [[ -f /etc/debian_version ]]; then
+    OS="debian"
+elif [[ -f /etc/redhat-release ]]; then
+    OS="centos"
+else
+    echo "Unsupported OS"
+    exit 1
+fi
+
 red='\033[0;31m'
 green='\033[0;32m'
 blue='\033[0;34m'

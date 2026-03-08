@@ -145,7 +145,7 @@ install_x-ui() {
     cd /usr/local/
 
     if [ $# == 0 ]; then
-        tag_version=$(curl -Ls "https://api.github.com/repos/io-vpn/3x-ui/releases/latest" | grep '"tag_name":' | sed -E 's/.*"([^"]+)".*/\1/')
+        tag_version=$(curl -Ls "https://api.github.com/repos/Phechr2025/3x-ui/releases/latest" | grep '"tag_name":' | sed -E 's/.*"([^"]+)".*/\1/')
         if [[ ! -n "$tag_version" ]]; then
             echo -e "${red}Failed to fetch x-ui version, it may be due to GitHub API restrictions, please try it later${plain}"
             exit 1

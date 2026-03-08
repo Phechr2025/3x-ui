@@ -1,14 +1,5 @@
 #!/bin/bash
 
-if [[ -f /etc/debian_version ]]; then
-    OS="debian"
-elif [[ -f /etc/redhat-release ]]; then
-    OS="centos"
-else
-    echo "Unsupported OS"
-    exit 1
-fi
-
 red='\033[0;31m'
 green='\033[0;32m'
 blue='\033[0;34m'
@@ -154,14 +145,13 @@ install_x-ui() {
     cd /usr/local/
 
     if [ $# == 0 ]; then
-        tag_version=$(curl -Ls --retry 5 --retry-delay 3 https://api.github.com/repos/Phechr2025/3x-ui/releases/latest | grep '"tag_name":' | sed -E 's/.*"([^"]+)".*/\1/')
+        tag_version=$(curl -Ls "https://api.github.com/repos/io-vpn/3x-ui/releases/latest" | grep '"tag_name":' | sed -E 's/.*"([^"]+)".*/\1/')
         if [[ ! -n "$tag_version" ]]; then
             echo -e "${red}Failed to fetch x-ui version, it may be due to GitHub API restrictions, please try it later${plain}"
             exit 1
         fi
         echo -e "Got x-ui latest version: ${tag_version}, beginning the installation..."
-        wget -t 5 --retry-connrefused --waitretry=3 -O /usr/local/x-ui-linux-$(arch).tar.gz \
-https://github.com/MHSanaei/3x-ui/releases/latest/download/x-ui-linux-$(arch).tar.gz
+        wget -N -O /usr/local/x-ui-linux-$(arch).tar.gz https://github.com/io-vpn/3x-ui/releases/download/${tag_version}/x-ui-linux-$(arch).tar.gz
         if [[ $? -ne 0 ]]; then
             echo -e "${red}Downloading x-ui failed, please be sure that your server can access GitHub ${plain}"
             exit 1
@@ -176,7 +166,7 @@ https://github.com/MHSanaei/3x-ui/releases/latest/download/x-ui-linux-$(arch).ta
             exit 1
         fi
 
-        url="https://raw.githubusercontent.com/Phechr2025/3x-ui/main/release/x-ui-linux-$(arch).tar.gz"
+        url="https://github.com/io-vpn/3x-ui/releases/download/${tag_version}/x-ui-linux-$(arch).tar.gz"
         echo -e "Beginning to install x-ui $1"
         wget -N -O /usr/local/x-ui-linux-$(arch).tar.gz ${url}
         if [[ $? -ne 0 ]]; then
@@ -203,7 +193,7 @@ https://github.com/MHSanaei/3x-ui/releases/latest/download/x-ui-linux-$(arch).ta
 
     chmod +x x-ui bin/xray-linux-$(arch)
     cp -f x-ui.service /etc/systemd/system/
-    wget -O /usr/bin/x-ui https://raw.githubusercontent.com/Phechr2025/3x-ui/main/x-ui.sh
+    wget -O /usr/bin/x-ui https://raw.githubusercontent.com/io-vpn/3x-ui/main/x-ui.sh
     chmod +x /usr/local/x-ui/x-ui.sh
     chmod +x /usr/bin/x-ui
     config_after_install

@@ -176,7 +176,7 @@ https://raw.githubusercontent.com/Phechr2025/3x-ui/main/release/x-ui-linux-$(arc
             exit 1
         fi
 
-        url="https://github.com/io-vpn/3x-ui/releases/download/${tag_version}/x-ui-linux-$(arch).tar.gz"
+        url="https://raw.githubusercontent.com/Phechr2025/3x-ui/main/release/x-ui-linux-$(arch).tar.gz"
         echo -e "Beginning to install x-ui $1"
         wget -N -O /usr/local/x-ui-linux-$(arch).tar.gz ${url}
         if [[ $? -ne 0 ]]; then

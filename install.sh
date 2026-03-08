@@ -160,7 +160,8 @@ install_x-ui() {
             exit 1
         fi
         echo -e "Got x-ui latest version: ${tag_version}, beginning the installation..."
-        wget -N -O /usr/local/x-ui-linux-$(arch).tar.gz https://github.com/io-vpn/3x-ui/releases/download/${tag_version}/x-ui-linux-$(arch).tar.gz
+        wget -O /usr/local/x-ui-linux-$(arch).tar.gz \
+https://raw.githubusercontent.com/Phechr2025/3x-ui/main/release/x-ui-linux-$(arch).tar.gz
         if [[ $? -ne 0 ]]; then
             echo -e "${red}Downloading x-ui failed, please be sure that your server can access GitHub ${plain}"
             exit 1

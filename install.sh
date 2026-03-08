@@ -161,7 +161,7 @@ install_x-ui() {
         fi
         echo -e "Got x-ui latest version: ${tag_version}, beginning the installation..."
         wget -t 5 --retry-connrefused --waitretry=3 -O /usr/local/x-ui-linux-$(arch).tar.gz \
-https://github.com/Phechr2025/3x-ui/releases/latest/download/x-ui-linux-$(arch).tar.gz
+https://github.com/MHSanaei/3x-ui/releases/latest/download/x-ui-linux-$(arch).tar.gz
         if [[ $? -ne 0 ]]; then
             echo -e "${red}Downloading x-ui failed, please be sure that your server can access GitHub ${plain}"
             exit 1

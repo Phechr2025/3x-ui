@@ -206,31 +206,10 @@ https://raw.githubusercontent.com/Phechr2025/3x-ui/main/release/x-ui-linux-$(arc
     wget -O /usr/bin/x-ui https://raw.githubusercontent.com/Phechr2025/3x-ui/main/x-ui.sh
     chmod +x /usr/local/x-ui/x-ui.sh
     chmod +x /usr/bin/x-ui
-
     config_after_install
 
     systemctl daemon-reload
     systemctl enable x-ui
-
-    echo "Optimizing network for VPN..."
-
-    cat >> /etc/sysctl.conf <<EOF
-    # VPN Network Optimization
-    net.core.rmem_max=67108864
-    net.core.wmem_max=67108864
-    net.core.rmem_default=262144
-    net.core.wmem_default=262144
-
-    net.core.netdev_max_backlog=250000
-
-    net.ipv4.tcp_rmem=4096 87380 67108864
-    net.ipv4.tcp_wmem=4096 65536 67108864
-
-    net.ipv4.tcp_mtu_probing=1
-    EOF
-
-    sysctl -p
-
     systemctl start x-ui
     echo -e "${green}x-ui ${tag_version}${plain} installation finished, it is running now..."
     echo -e ""
